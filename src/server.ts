@@ -1,21 +1,18 @@
 import { Server } from 'http';
 import mongoose from 'mongoose';
 import app from './app';
+import { envVars } from './app/config/env';
 
 let server: Server;
 
-const port = 5000;
-
 const startServer = async () => {
   try {
-    await mongoose.connect(
-      'mongodb+srv://demoTodo:p72summ858Ib7wEj@cluster0.blfnk.mongodb.net'
-    );
+    await mongoose.connect(envVars.DB_URL);
 
     console.log('🟢 MongoDB connected!');
 
-    server = app.listen(port, () => {
-      console.log(`🟢 Server is running on port ${port}`);
+    server = app.listen(envVars.PORT, () => {
+      console.log(`🟢 Server is running on port ${envVars.PORT}`);
     });
   } catch (error) {
     console.log('❌ MongoDB connection failed!');

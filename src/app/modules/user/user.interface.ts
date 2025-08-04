@@ -7,9 +7,9 @@ export enum UserRole {
   SuperAdmin = 'super_admin',
 }
 
-export enum AuthMethod {
-  Google = 'google',
-  Credentials = 'credentials',
+export interface IAuthMethod {
+  provider: string; // google, credential
+  providerId: string;
 }
 
 export enum UserStatus {
@@ -18,7 +18,7 @@ export enum UserStatus {
   Blocked = 'blocked',
 }
 
-interface IUser {
+export interface IUser {
   name: string;
   email: string;
   password?: string;
@@ -29,9 +29,7 @@ interface IUser {
   isActive?: UserStatus;
   isVerified?: boolean;
   role: UserRole;
-  auth: AuthMethod;
+  auth: IAuthMethod[];
   booking?: Types.ObjectId[];
   guides?: Types.ObjectId[];
-  createdAt?: Date;
-  updatedAt?: Date;
 }

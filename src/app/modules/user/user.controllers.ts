@@ -1,10 +1,15 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { userService } from './user.services';
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const user = userService.createUser(req.body);
+    // throw new Error('Error from user controller line 11');
+    const user = await userService.createUser(req.body);
 
     res.status(StatusCodes.CREATED).json({
       status: true,
@@ -12,11 +17,13 @@ export const createUser = async (req: Request, res: Response) => {
       data: user,
     });
   } catch (error) {
-    console.log('❌ Failed to create user', error);
-    res.status(StatusCodes.BAD_REQUEST).json({
-      status: false,
-      message: '❌ Failed to create user',
-    });
+    // console.log('❌ Failed to create user', error, 'form user controller');
+    // res.status(StatusCodes.BAD_REQUEST).json({
+    //   status: false,
+    //   message: '❌ Failed to create user',
+    // });
+
+    next(error);
   }
 };
 

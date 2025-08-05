@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { User } from './user.model';
+import { userService } from './user.services';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { name, email } = req.body;
-
-    const user = await User.create({ name, email });
+    const user = userService.createUser(req.body);
 
     res.status(StatusCodes.CREATED).json({
       status: true,

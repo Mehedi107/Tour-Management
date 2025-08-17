@@ -1,38 +1,33 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { userService } from './user.services';
+import { catchAsync } from '../../utils/catchAsync';
 // import AppError from '../../errorHelpers/AppError';
 
-export const createUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    // throw new Error('Error from user controller line 11');
-    // throw new AppError(
-    //   StatusCodes.BAD_REQUEST,
-    //   'Error from user controller line 11'
-    // );
+const createUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const user = await userService.createUser(req.body);
 
-    const user = await userService.createUser(req.body);
-
-    res.status(StatusCodes.CREATED).json({
+  res.status(StatusCodes.CREATED).json({
       status: true,
       message: '✅ User created successfully!',
       data: user,
-    });
-  } catch (error) {
-    // console.log('❌ Failed to create user', error, 'form user controller');
-    // res.status(StatusCodes.BAD_REQUEST).json({
-    //   status: false,
-    //   message: '❌ Failed to create user',
-    // });
+  });
+})
 
-    next(error);
-  }
-};
+
+const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const users = await userService.getAllUsers();
+
+  res.status(StatusCodes.OK).json({
+    status: true,
+    message: '✅ Retrieve all users successfully!',
+    data: users,
+  });
+})
+
 
 export const userController = {
   createUser,
-};
+  getAllUsers,
+}

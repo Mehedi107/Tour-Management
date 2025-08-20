@@ -16,7 +16,7 @@ export const createUserZodSchema = z.object({
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[a-z]/, "Password must contain at least one lowercase letter")
     .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[@$!%*?&]/, "Password must contain at least one special character (@, $, !, %, *, ?, &)").optional(),
+    .regex(/[@$!%*?&]/, "Password must contain at least one special character (@, $, !, %, *, ?, &)"),
 
     phone: z.number().optional(),
     address: z.string().trim().optional(),

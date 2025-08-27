@@ -3,6 +3,7 @@ import AppError from "../../errorHelpers/AppError";
 import { IUser } from "../user/user.interface"
 import { User } from "../user/user.model";
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const credentialsLogin = async (payload: Partial<IUser>) => {
   const { email, password } = payload;
@@ -19,9 +20,15 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
     throw new AppError(StatusCodes.BAD_REQUEST, "Invalid Password!")
   }
 
-  return {
-    email: isUserExist.email
+  const user = {
+    userId: isUserExist._id,
+    email: isUserExist.email,
+    role: isUserExist.role
   }
+
+  const accessToken  = jwt.sign(user, 'secret', { expiresIn: '1d'})
+
+  return {accessToken}
 
 }
 

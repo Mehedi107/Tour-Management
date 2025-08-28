@@ -9,9 +9,12 @@ interface IEnvVars {
   PORT: string;
   DB_URL: string;
   NODE_ENV: Environment;
+  JWT_EXPIRES: string,
+  JWT_SECRET: string,
+  BCRYPT_SALT: string
 }
 
-const requiredEnvVars: string[] = ['DB_URL', 'NODE_ENV', 'PORT'];
+const requiredEnvVars: string[] = ['DB_URL', 'NODE_ENV', 'PORT', 'JWT_EXPIRES', 'JWT_SECRET', 'BCRYPT_SALT'];
 
 const loadEnvVars = (): IEnvVars => {
   const missingVars = requiredEnvVars.filter(value => !process.env[value]);
@@ -26,6 +29,9 @@ const loadEnvVars = (): IEnvVars => {
     PORT: process.env.PORT as string,
     DB_URL: process.env.DB_URL as string,
     NODE_ENV: process.env.NODE_ENV as Environment,
+    JWT_EXPIRES: process.env.JWT_EXPIRES as string, 
+    JWT_SECRET: process.env.JWT_SECRET as string,
+    BCRYPT_SALT: process.env.BCRYPT_SALT as string
   };
 };
 

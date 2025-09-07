@@ -2,6 +2,7 @@ import { Server } from 'http';
 import mongoose from 'mongoose';
 import app from './app';
 import { envVars } from './app/config/env';
+import { createSuperAdmin } from './app/utils/createSuperAdmin';
 
 let server: Server;
 
@@ -20,7 +21,11 @@ const startServer = async () => {
   }
 };
 
-startServer();
+(async()=>{
+  await startServer()
+  await createSuperAdmin()
+})()
+
 
 /* 
 ✅ unhandledRejection error (if developer forget to handle any promise error)

@@ -9,3 +9,5 @@ export const userRoute = Router();
 userRoute.post('/register', validateRequest(createUserZodSchema), userController.createUser);
 
 userRoute.get('/all-users', checkAuth(), userController.getAllUsers);
+
+userRoute.patch('/:id', checkAuth(), userController.updateUser);

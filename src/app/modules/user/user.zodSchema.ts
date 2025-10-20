@@ -24,7 +24,7 @@ export const createUserZodSchema = z.object({
 
 export const updateUserZodSchema = z.object({
     name: z.string().trim().min(2).max(50).optional(),
-
+    
     password: z
     .string()
     .nonempty("Password is required")

@@ -3,7 +3,7 @@ import { IAuthMethod, IUser, UserRole } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
 import bcrypt from "bcryptjs";
 
-export const createSuperAdmin = async () => {
+export const seedSuperAdmin = async () => {
   try {
     const isSuperAdminExist = await User.findOne({ email: envVars.SUPER_ADMIN_EMAIL });
 

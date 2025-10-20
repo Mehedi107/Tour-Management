@@ -2,7 +2,7 @@ import { Server } from 'http';
 import mongoose from 'mongoose';
 import app from './app';
 import { envVars } from './app/config/env';
-import { createSuperAdmin } from './app/utils/createSuperAdmin';
+import { seedSuperAdmin } from './app/utils/createSuperAdmin';
 
 let server: Server;
 
@@ -23,7 +23,7 @@ const startServer = async () => {
 
 (async()=>{
   await startServer()
-  await createSuperAdmin()
+  await seedSuperAdmin()
 })()
 
 
